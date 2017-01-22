@@ -1,0 +1,42 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage<ContentModels.HomePage>
+@using ContentModels = Umbraco.Web.PublishedContentModels;
+@{
+ Layout = "Master.cshtml";
+}
+ <div id="main-container">
+  <div id="main" class="wrapper clearfix">
+   
+   <article>
+    <header>
+     @Umbraco.Field("bodyText")
+    </header>
+    <section>
+     <h2>article section h2</h2>
+	 @if (Model.Content.HasValue("article2"))
+     {
+         var caseStudyImagesList = Model.Content.GetPropertyValue<string>("article2").Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse);
+         var caseStudyImagesCollection = Umbraco.TypedMedia(caseStudyImagesList).Where(x => x != null);
+
+         foreach (var caseStudyImage in caseStudyImagesCollection)
+         {
+            <img src="@caseStudyImage.Url" style="width:300px;height:300px" />
+         }
+     }
+    </section>
+    <section>
+     <h2>article section h2</h2>
+     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales urna non odio egestas tempor. Nunc vel vehicula ante. Etiam bibendum iaculis libero, eget molestie nisl pharetra in. In semper consequat est, eu porta velit mollis nec. Curabitur posuere enim eget turpis feugiat tempor. Etiam ullamcorper lorem dapibus velit suscipit ultrices. Proin in est sed erat facilisis pharetra.</p>
+    </section>
+    <footer>
+     <h3>article footer h3</h3>
+     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales urna non odio egestas tempor. Nunc vel vehicula ante. Etiam bibendum iaculis libero, eget molestie nisl pharetra in. In semper consequat est, eu porta velit mollis nec. Curabitur posuere enim eget turpis feugiat tempor.</p>
+    </footer>
+   </article>
+   
+   <aside>
+    <h3>aside</h3>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales urna non odio egestas tempor. Nunc vel vehicula ante. Etiam bibendum iaculis libero, eget molestie nisl pharetra in. In semper consequat est, eu porta velit mollis nec. Curabitur posuere enim eget turpis feugiat tempor. Etiam ullamcorper lorem dapibus velit suscipit ultrices.</p>
+   </aside>
+   
+  </div> <!-- #main -->
+ </div> <!-- #main-container -->
